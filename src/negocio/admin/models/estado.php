@@ -1,55 +1,54 @@
-
 <?php
-//MODELO 
+//MODELO - Estado
 require_once(__DIR__."/../sistema.class.php");
-class Estado extends Sistema{
-    function leer(){
-        $this -> conectar();
-        $sql = "select * from estado";
+
+class Estado extends Sistema {
+
+    function leer() {
+        $this->conectar();
+        $sql = "SELECT * FROM estado ORDER BY id_estado";
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
-        $estados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $estados;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    function leerUno($id_estado){
-        $this -> conectar();
-        $sql = "select * from estado where id_estado = :id_estado ";
+
+    function leerUno($id_estado) {
+        $this->conectar();
+        $sql = "SELECT * FROM estado WHERE id_estado = :id_estado";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(":id_estado",$id_estado, PDO::PARAM_INT); 
+        $stmt->bindParam(":id_estado", $id_estado, PDO::PARAM_INT);
         $stmt->execute();
-        $estados = $stmt->fetch(PDO::FETCH_ASSOC);
-        //el fetchAll regresa un arreglo bidimensional
-        //fetch solo regresa 1
-        return $estados;
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-    //manda información a traves de un array
-    function crear($data){
-        $this -> conectar();
-        $sql = "insert into estado(estado) values (:estado)";
+
+    // id_estado NO es serial, el usuario lo ingresa manualmente
+    function crear($data) {
+        $this->conectar();
+        $sql = "INSERT INTO estado(id_estado, estado) VALUES (:id_estado, :estado)";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(":estado",$data['estado'], PDO::PARAM_STR); 
-        $resultado = $stmt->execute();
-        $cantidad = $stmt->rowCount();
-        return $cantidad;
+        $stmt->bindParam(":id_estado", $data['id_estado'], PDO::PARAM_INT);
+        $stmt->bindParam(":estado",    $data['estado'],    PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->rowCount();
     }
-    function actualizar($id_estado, $data){
-        $this -> conectar();
-        $sql = "update estado set estado = :estado where id_estado = :id_estado";
+
+    function actualizar($id_estado, $data) {
+        $this->conectar();
+        $sql = "UPDATE estado SET estado = :estado WHERE id_estado = :id_estado";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(":estado",$data['estado'], PDO::PARAM_STR); 
-        $stmt->bindParam(":id_estado",$id_estado, PDO::PARAM_INT); 
-        $resultado = $stmt->execute();
-        $cantidad = $stmt->rowCount();
-        return $cantidad;
+        $stmt->bindParam(":estado",    $data['estado'], PDO::PARAM_STR);
+        $stmt->bindParam(":id_estado", $id_estado,      PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->rowCount();
     }
-    function borrar($id_estado){
-        $this -> conectar();
-        $sql = "delete from estado where id_estado = :id_estado";
+
+    function borrar($id_estado) {
+        $this->conectar();
+        $sql = "DELETE FROM estado WHERE id_estado = :id_estado";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(":id_estado",$id_estado, PDO::PARAM_INT); 
-        $resultado = $stmt->execute();
-        $cantidad = $stmt->rowCount();
-        return $cantidad;
+        $stmt->bindParam(":id_estado", $id_estado, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->rowCount();
     }
-};
+}
 ?>

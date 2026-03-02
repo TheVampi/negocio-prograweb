@@ -1,40 +1,31 @@
-<h1>Actualizar Municipio</h1>
-<form action="municipio.php?accion=actualizar&id=<?php echo $id; ?>" method="POST">
-    <div class="form-group">
-        <label for="municipio">Nombre del municipio</label>
-        <input type="text" class="form-control" name="municipio" id="municipio" 
-               value="<?php echo $data['municipio']; ?>" required>
-    </div>
-    
-    <div class="form-group">
-        <label for="id_estado">Selecciona el estado</label>
-        <select class="form-control" name="id_estado" id="id_estado" required>
-            <option value="">-- Selecciona un estado --</option>
-            <?php foreach ($estados as $estado): ?>
-                <option value="<?php echo $estado['id_estado']; ?>" 
-                    <?php echo ($estado['id_estado'] == $data['id_estado']) ? 'selected' : ''; ?>>
-                    <?php echo $estado['estado']; ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
+<h2 class="mb-4">Actualizar Municipio</h2>
 
-    /**
-    <select name="id_estado" id="id_estado">
-        <?php foreach($estados as $estado):
-        $selected ='';
-        if($data['id_estado'] == $estado['id_estado']){
-            $selected = 'selected';
-        }
-        ?>
-            <option value="<?php echo $estado['id_estado']; ?>" <?php echo $selected; ?>>
-                <?php echo $estado['estado']; ?>
-            </option>
-        <?php endforeach; ?>
-        </select>
-    */    
+<div class="form-section">
+    <form action="municipio.php?accion=actualizar&id=<?php echo $id; ?>" method="POST">
 
-    <br>
-    <input type="submit" class="btn btn-primary" name="enviar" value="Actualizar">
-    <a href="municipio.php" class="btn btn-secondary">Cancelar</a>
-</form>
+        <div class="mb-3">
+            <label for="municipio" class="form-label">Nombre del Municipio</label>
+            <input type="text" class="form-control" name="municipio" id="municipio" required
+                   maxlength="100" value="<?php echo $data['municipio']; ?>">
+        </div>
+
+        <div class="mb-3">
+            <label for="id_estado" class="form-label">Estado</label>
+            <select class="form-select" name="id_estado" id="id_estado" required>
+                <option value="">-- Selecciona un estado --</option>
+                <?php foreach ($estados as $estado): ?>
+                    <option value="<?php echo $estado['id_estado']; ?>"
+                        <?php echo ($estado['id_estado'] == $data['id_estado']) ? 'selected' : ''; ?>>
+                        <?php echo $estado['estado']; ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
+        <div class="d-flex gap-2">
+            <input type="submit" class="btn btn-primary" name="enviar" value="Actualizar">
+            <a href="municipio.php" class="btn btn-secondary">Cancelar</a>
+        </div>
+
+    </form>
+</div>
