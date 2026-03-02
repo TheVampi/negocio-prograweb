@@ -7,13 +7,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   </head>
   <body>
-    <header>
-        <img src="../images/logo.png" alt="Logo Innovate">
-        
-    </header>
         <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
             <div class="container-fluid">
-            <a class="navbar-brand" href="index.php">Innovate</a>
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.php">
+                <img src="../images/logo.png" alt="Logo DashBla Systems" height="24" style="width:auto;">
+                DashBla Systems
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -31,11 +30,11 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="estado.php">Estados</a></li>
+                    <li><a class="dropdown-item" href="municipio.php">Municipios</a></li>
                     <li><a class="dropdown-item" href="rol.php">Roles</a></li>
-                    <li><a class="dropdown-item" href="municipio.php">Municipio</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    <li><a class="dropdown-item" href="negocio.php">Negocios</a></li>
+                    <li><a class="dropdown-item" href="empleado.php">Empleados</a></li>
                 </ul>
                 </li>
                 <li class="nav-item">

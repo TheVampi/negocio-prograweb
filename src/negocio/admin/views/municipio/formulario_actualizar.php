@@ -19,20 +19,6 @@
         </select>
     </div>
 
-    /**
-    <select name="id_estado" id="id_estado">
-        <?php foreach($estados as $estado):
-        $selected ='';
-        if($data['id_estado'] == $estado['id_estado']){
-            $selected = 'selected';
-        }
-        ?>
-            <option value="<?php echo $estado['id_estado']; ?>" <?php echo $selected; ?>>
-                <?php echo $estado['estado']; ?>
-            </option>
-        <?php endforeach; ?>
-        </select>
-    */    
 
     <br>
     <input type="submit" class="btn btn-primary" name="enviar" value="Actualizar">
