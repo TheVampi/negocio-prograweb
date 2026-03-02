@@ -43,16 +43,12 @@ class Negocio extends Sistema{
     }
     function actualizar($id_negocio, $data){
         $this->conectar();
-        $sql = "update negocio set negocio = :negocio, descripcion = :descripcion,
-                telefono = :telefono, correo = :correo, direccion = :direccion
+        $sql = "update negocio set negocio = :negocio, id_municipio = :id_municipio
                 where id_negocio = :id_negocio";
         $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(":negocio",     $data['negocio'],     PDO::PARAM_STR);
-        $stmt->bindParam(":descripcion", $data['descripcion'], PDO::PARAM_STR);
-        $stmt->bindParam(":telefono",    $data['telefono'],    PDO::PARAM_STR);
-        $stmt->bindParam(":correo",      $data['correo'],      PDO::PARAM_STR);
-        $stmt->bindParam(":direccion",   $data['direccion'],   PDO::PARAM_STR);
-        $stmt->bindParam(":id_negocio",  $id_negocio,          PDO::PARAM_INT);
+        $stmt->bindParam(":negocio",      $data['negocio'],      PDO::PARAM_STR);
+        $stmt->bindParam(":id_municipio", $data['id_municipio'], PDO::PARAM_INT);
+        $stmt->bindParam(":id_negocio",   $id_negocio,           PDO::PARAM_INT);
         $resultado = $stmt->execute();
         $cantidad = $stmt->rowCount();
         return $cantidad;

@@ -29,23 +29,20 @@
         <input type="text" class="form-control" name="imagen" id="imagen">
     </div>
     <div class="mb-3">
+        <label for="correo" class="form-label">Correo</label>
+        <input type="email" class="form-control" name="correo" id="correo" required>
+    </div>
+    <div class="mb-3">
+        <label for="contrasena" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" name="contrasena" id="contrasena" required>
+    </div>
+    <div class="mb-3">
         <label for="id_municipio" class="form-label">Municipio</label>
         <select class="form-select" name="id_municipio" id="id_municipio" required>
             <option value="">-- Selecciona un municipio --</option>
             <?php foreach ($municipios as $municipio): ?>
                 <option value="<?php echo $municipio['id_municipio']; ?>">
                     <?php echo $municipio['municipio']; ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label for="id_usuario" class="form-label">Usuario</label>
-        <select class="form-select" name="id_usuario" id="id_usuario" required>
-            <option value="">-- Selecciona un usuario --</option>
-            <?php foreach ($usuarios as $usuario): ?>
-                <option value="<?php echo $usuario['id_usuario']; ?>">
-                    <?php echo $usuario['correo']; ?>
                 </option>
             <?php endforeach; ?>
         </select>

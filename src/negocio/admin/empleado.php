@@ -25,7 +25,8 @@ switch($accion){
                 "curp" => $_POST['curp'],
                 "imagen" => $_POST['imagen'],
                 "id_municipio" => $_POST['id_municipio'],
-                "id_usuario" => $_POST['id_usuario'],
+                "correo" => $_POST['correo'],
+                "contrasena" => $_POST['contrasena'],
                 "id_negocio" => $_POST['id_negocio']
             ];
             $cantidad = $app->crear($data);

@@ -28,7 +28,7 @@
         </div>
 
         <div class="d-flex gap-2 mt-2">
-            <input type="submit" class="btn btn-primary" name="negocio" value="Guardar">
+            <input type="submit" class="btn btn-primary" name="enviar" value="Guardar">
             <a href="negocio.php" class="btn btn-secondary">Cancelar</a>
         </div>
 

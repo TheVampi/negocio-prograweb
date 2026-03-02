@@ -13,7 +13,7 @@ include_once(__DIR__.'/views/header.php');
 
 switch($accion){
     case 'crear':
-        if(isset($_POST['negocio'])){
+        if(isset($_POST['enviar'])){
             $data = [
                 "negocio"      => $_POST['negocio'],
                 "id_municipio" => $_POST['id_municipio']
@@ -32,13 +32,10 @@ switch($accion){
         break;
 
     case 'actualizar':
-        if(isset($_POST['negocio'])){
+        if(isset($_POST['enviar'])){
             $data = [
-                "negocio"     => $_POST['negocio'],
-                "descripcion" => $_POST['descripcion'],
-                "telefono"    => $_POST['telefono'],
-                "correo"      => $_POST['correo'],
-                "direccion"   => $_POST['direccion']
+                "negocio"      => $_POST['negocio'],
+                "id_municipio" => $_POST['id_municipio']
             ];
             $cantidad = $app->actualizar($id, $data);
             if ($cantidad){
