@@ -7,6 +7,7 @@ $app = new Negocio();
 
 $id = (isset($_GET['id']))?$_GET['id']:null;
 $accion = (isset($_GET['accion']))?$_GET['accion']:null;
+$municipios = $app->obtenerMunicipios();
 
 include_once(__DIR__.'/views/header.php');
 
@@ -14,11 +15,8 @@ switch($accion){
     case 'crear':
         if(isset($_POST['negocio'])){
             $data = [
-                "negocio"     => $_POST['negocio'],
-                "descripcion" => $_POST['descripcion'],
-                "telefono"    => $_POST['telefono'],
-                "correo"      => $_POST['correo'],
-                "direccion"   => $_POST['direccion']
+                "negocio"      => $_POST['negocio'],
+                "id_municipio" => $_POST['id_municipio']
             ];
             $cantidad = $app->crear($data);
             if ($cantidad){
