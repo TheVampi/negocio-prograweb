@@ -33,8 +33,9 @@ switch ($accion) {
                 "rfc"              => $_POST['rfc'],
                 "curp"             => $_POST['curp'],
                 "imagen"           => $_POST['imagen'],
+                "correo"           => $_POST['correo'],
+                "contrasena"       => $_POST['contrasena'],
                 "id_municipio"     => $_POST['id_municipio'],
-                "id_usuario"       => $_POST['id_usuario'],
                 "id_negocio"       => $_POST['id_negocio']
             ];
             $cantidad = $app->crear($data);

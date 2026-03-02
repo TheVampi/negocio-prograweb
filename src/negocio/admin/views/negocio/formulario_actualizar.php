@@ -56,11 +56,14 @@ foreach ($municipios as $municipio) {
 </div>
 
 <script>
-var municipioMap = {
-    <?php foreach ($municipios as $municipio): ?>
-    <?php echo json_encode($municipio['municipio'] . ' - ' . $municipio['estado']); ?>: <?php echo $municipio['id_municipio']; ?>,
-    <?php endforeach; ?>
-};
+var municipioMap = <?php
+$map = [];
+foreach ($municipios as $municipio) {
+    $key = $municipio['municipio'] . ' - ' . $municipio['estado'];
+    $map[$key] = (int)$municipio['id_municipio'];
+}
+echo json_encode($map);
+?>;
 
 var inputBuscar = document.getElementById('municipio_buscar');
 var inputId     = document.getElementById('id_municipio');

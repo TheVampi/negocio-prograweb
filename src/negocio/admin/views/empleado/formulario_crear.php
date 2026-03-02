@@ -39,6 +39,17 @@
         </div>
 
         <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="correo" class="form-label">Correo</label>
+                <input type="email" class="form-control" name="correo" id="correo" required maxlength="100" placeholder="Ej. empleado@empresa.com">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="contrasena" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" name="contrasena" id="contrasena" required maxlength="100">
+            </div>
+        </div>
+
+        <div class="row">
 
             <!-- MUNICIPIO con búsqueda -->
             <div class="col-md-4 mb-3">
@@ -59,17 +70,6 @@
                 <div class="invalid-feedback">Selecciona un municipio válido de la lista.</div>
             </div>
 
-            <div class="col-md-4 mb-3">
-                <label for="id_usuario" class="form-label">Usuario</label>
-                <select class="form-select" name="id_usuario" id="id_usuario" required>
-                    <option value="">-- Selecciona --</option>
-                    <?php foreach ($usuarios as $usuario): ?>
-                        <option value="<?php echo $usuario['id_usuario']; ?>">
-                            <?php echo $usuario['correo']; ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
             <div class="col-md-4 mb-3">
                 <label for="id_negocio" class="form-label">Negocio</label>
                 <select class="form-select" name="id_negocio" id="id_negocio" required>

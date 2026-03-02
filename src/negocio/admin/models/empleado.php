@@ -27,23 +27,60 @@ class Empleado extends Sistema {
 
     function crear($data) {
         $this->conectar();
-        $sql = "INSERT INTO empleado(nombre, primer_apellido, segundo_apellido,
-                    fecha_nacimiento, rfc, curp, imagen, id_municipio, id_usuario, id_negocio)
-                VALUES (:nombre, :primer_apellido, :segundo_apellido,
-                    :fecha_nacimiento, :rfc, :curp, :imagen, :id_municipio, :id_usuario, :id_negocio)";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(":nombre",           $data['nombre'],           PDO::PARAM_STR);
-        $stmt->bindParam(":primer_apellido",  $data['primer_apellido'],  PDO::PARAM_STR);
-        $stmt->bindParam(":segundo_apellido", $data['segundo_apellido'], PDO::PARAM_STR);
-        $stmt->bindParam(":fecha_nacimiento", $data['fecha_nacimiento'], PDO::PARAM_STR);
-        $stmt->bindParam(":rfc",              $data['rfc'],              PDO::PARAM_STR);
-        $stmt->bindParam(":curp",             $data['curp'],             PDO::PARAM_STR);
-        $stmt->bindParam(":imagen",           $data['imagen'],           PDO::PARAM_STR);
-        $stmt->bindParam(":id_municipio",     $data['id_municipio'],     PDO::PARAM_INT);
-        $stmt->bindParam(":id_usuario",       $data['id_usuario'],       PDO::PARAM_INT);
-        $stmt->bindParam(":id_negocio",       $data['id_negocio'],       PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->rowCount();
+        $this->db->beginTransaction();
+        $cantidad = 0;
+
+        try {
+            // Verificar si el correo ya existe en usuario
+            $sql  = "SELECT correo FROM usuario WHERE correo = :correo";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(":correo", $data['correo'], PDO::PARAM_STR);
+            $stmt->execute();
+
+            if ($stmt->rowCount() == 0) {
+                // Crear el usuario
+                $data['contrasena'] = md5($data['contrasena']);
+                $sql  = "INSERT INTO usuario(correo, contrasena) VALUES (:correo, :contrasena)";
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(":correo",     $data['correo'],     PDO::PARAM_STR);
+                $stmt->bindParam(":contrasena", $data['contrasena'], PDO::PARAM_STR);
+                $stmt->execute();
+
+                // Recuperar el id_usuario recién creado
+                $sql  = "SELECT id_usuario FROM usuario WHERE correo = :correo";
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(":correo", $data['correo'], PDO::PARAM_STR);
+                $stmt->execute();
+                $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+                $data['id_usuario'] = $usuario['id_usuario'];
+
+                // Insertar el empleado
+                $sql = "INSERT INTO empleado(nombre, primer_apellido, segundo_apellido,
+                            fecha_nacimiento, rfc, curp, imagen, id_municipio, id_usuario, id_negocio)
+                        VALUES (:nombre, :primer_apellido, :segundo_apellido,
+                            :fecha_nacimiento, :rfc, :curp, :imagen, :id_municipio, :id_usuario, :id_negocio)";
+                $stmt = $this->db->prepare($sql);
+                $stmt->bindParam(":nombre",           $data['nombre'],           PDO::PARAM_STR);
+                $stmt->bindParam(":primer_apellido",  $data['primer_apellido'],  PDO::PARAM_STR);
+                $stmt->bindParam(":segundo_apellido", $data['segundo_apellido'], PDO::PARAM_STR);
+                $stmt->bindParam(":fecha_nacimiento", $data['fecha_nacimiento'], PDO::PARAM_STR);
+                $stmt->bindParam(":rfc",              $data['rfc'],              PDO::PARAM_STR);
+                $stmt->bindParam(":curp",             $data['curp'],             PDO::PARAM_STR);
+                $stmt->bindParam(":imagen",           $data['imagen'],           PDO::PARAM_STR);
+                $stmt->bindParam(":id_municipio",     $data['id_municipio'],     PDO::PARAM_INT);
+                $stmt->bindParam(":id_usuario",       $data['id_usuario'],       PDO::PARAM_INT);
+                $stmt->bindParam(":id_negocio",       $data['id_negocio'],       PDO::PARAM_INT);
+                $stmt->execute();
+                $cantidad = $stmt->rowCount();
+            }
+
+            $this->db->commit();
+        } catch (Exception $e) {
+            $this->db->rollBack();
+            throw $e;
+        }
+
+        return $cantidad;
     }
 
     function actualizar($id_empleado, $data) {
